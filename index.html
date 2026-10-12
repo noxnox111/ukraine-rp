@@ -26,12 +26,14 @@
     <link rel="modulepreload" crossorigin href="/ukraine-rp/assets/sphericalPolynomial.pure-DssSM6A8.js">
     <link rel="modulepreload" crossorigin href="/ukraine-rp/assets/postProcess.pure-BpJixkhV.js">
     <link rel="modulepreload" crossorigin href="/ukraine-rp/assets/protocol-DgIAFgFz.js">
+    <style>#osm{display:flex;align-items:center;gap:6px}#osm button{width:18px;height:18px;padding:0;border:0;border-radius:50%;background:#0005;color:#fff;font:12px system-ui,sans-serif;line-height:18px;touch-action:manipulation}#osm:not(.open) span{display:none}</style>
   </head>
   <body>
     <canvas id="game"></canvas>
     <div id="hud"></div>
     <div id="net"><span id="net-status">офлайн</span><button id="invite" hidden>Запросити</button><span id="net-toast" hidden></span></div>
-    <div id="osm">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · trees: <a href="https://registry.opendata.aws/dataforgood-fb-forestsv2/" target="_blank" rel="noopener">Meta &amp; WRI CHMv2</a>, CC BY 4.0 (derived)</div>
+    <div id="osm" class="open"><button type="button" aria-label="Джерела даних" onclick="this.parentNode.classList.toggle('open'); this.blur()">ⓘ</button><span>© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · trees: <a href="https://registry.opendata.aws/dataforgood-fb-forestsv2/" target="_blank" rel="noopener">Meta &amp; WRI CHMv2</a>, CC BY 4.0 (derived)</span></div>
+    <script>setTimeout(() => document.getElementById('osm').classList.remove('open'), 5000)</script>
     <div class="pad left"><button data-key="left">◀</button><button data-key="right">▶</button></div>
     <div class="pad right"><button data-key="back">▼</button><button data-key="gas">▲</button></div>
     <button id="reset" title="R">⟲</button>

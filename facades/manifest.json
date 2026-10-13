@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "buildings": [
+    { "id": "way/28117292", "renderer": "legacy", "profile": "27" },
+    { "id": "way/29014201", "renderer": "legacy", "profile": "31" },
+    { "id": "way/27862328", "renderer": "legacy", "profile": "centrum" }
+  ]
+}

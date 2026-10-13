@@ -1,4 +1,4 @@
-import{t as e}from"./shaderStore-D-XQlhUT.js";import{a as t,c as n,d as r,i,l as a,n as o,o as s,r as c,s as l,t as u,u as d}from"./clipPlaneVertex-D0NeDy6h.js";import{t as f}from"./instancesDeclaration-CJBvtBV5.js";var p=`glowMapGenerationVertexShader`,m=`attribute vec3 position;
+import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./instancesDeclaration-CJBvtBV5.js";import{t as n}from"./instancesVertex-C-FoRQR1.js";import{a as r,c as i,i as a,l as o,n as s,o as c,r as l,s as u,t as d,u as f}from"./clipPlaneVertex-DUQTNE6T.js";var p=`glowMapGenerationVertexShader`,m=`attribute vec3 position;
 #include<bonesDeclaration>
 #include<bakedVertexAnimationDeclaration>
 #include<morphTargetsVertexGlobalDeclaration>
@@ -72,4 +72,4 @@ vUVEmissive=vec2(emissiveMatrix*vec4(uv2Updated,1.0,0.0));
 vColor=color;
 #endif
 #include<clipPlaneVertex>
-}`;e.ShadersStore[p]||(e.ShadersStore[p]=m);var h=[r,d,n,l,a,f,s,t,i,c,o,u];for(let t of h)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var g={name:p,shader:m};export{g as glowMapGenerationVertexShader};
+}`;e.ShadersStore[p]||(e.ShadersStore[p]=m);var h=[f,o,u,c,i,t,r,a,n,l,s,d];for(let t of h)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var g={name:p,shader:m};export{g as glowMapGenerationVertexShader};

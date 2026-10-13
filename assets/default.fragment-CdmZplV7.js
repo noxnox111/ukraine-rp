@@ -1,4 +1,4 @@
-import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./sceneUboDeclaration-B5VhSG0v.js";import{t as ee}from"./meshUboDeclaration-BmNu2KU_.js";import{n,r as te,t as ne}from"./logDepthDeclaration-A3hI1TDh.js";import{a as re,i as ie,n as ae,o as oe,r,t as i}from"./bumpFragment-Dy5wKBof.js";import{t as a}from"./helperFunctions-gEnZbjN3.js";import{n as o,t as se}from"./imageProcessingFunctions-G8WWRV14.js";import{n as ce,t as le}from"./clipPlaneFragment-DVK0wgyZ.js";var s=`decalFragmentDeclaration`,c=`#ifdef DECAL
+import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./imageProcessingFunctions-Cqomo2bJ.js";import{t as ee}from"./sceneUboDeclaration-B5VhSG0v.js";import{t as n}from"./meshUboDeclaration-BmNu2KU_.js";import{n as te,r as ne,t as re}from"./logDepthDeclaration-A3hI1TDh.js";import{a as ie,i as ae,n as oe,o as r,r as i,t as a}from"./bumpFragment-Dy5wKBof.js";import{t as o}from"./helperFunctions-gEnZbjN3.js";import{t as se}from"./imageProcessingDeclaration-D-Jk7MeR.js";import{n as ce,t as le}from"./clipPlaneFragment-DVK0wgyZ.js";var s=`decalFragmentDeclaration`,c=`#ifdef DECAL
 uniform vec4 vDecalInfos;
 #endif
 `;e.IncludesShadersStore[s]||(e.IncludesShadersStore[s]=c);var ue={name:s,shader:c},l=`defaultFragmentDeclaration`,u=`uniform vec4 vEyePosition;uniform vec4 vDiffuseColor;uniform vec4 vSpecularColor;uniform vec3 vEmissiveColor;uniform vec3 vAmbientColor;uniform float visibility;
@@ -1708,4 +1708,4 @@ if (fragDepth==nearestDepth) {frontColor.rgb+=color.rgb*color.a*alphaMultiplier;
 #endif
 #define CUSTOM_FRAGMENT_MAIN_END
 }
-`;e.ShadersStore[Q]||(e.ShadersStore[Q]=$);var Te=[ue,de,t,ee,te,oe,p,g,n,a,fe,pe,me,he,ge,k,re,M,ie,o,se,F,r,ae,ce,ne,_e,le,i,ve,ye,be,xe,Se,Ce,we];for(let t of Te)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var Ee={name:Q,shader:$};export{Ee as defaultPixelShader};
+`;e.ShadersStore[Q]||(e.ShadersStore[Q]=$);var Te=[ue,de,ee,n,ne,r,p,g,te,o,fe,pe,me,he,ge,k,ie,M,ae,se,t,F,i,oe,ce,re,_e,le,a,ve,ye,be,xe,Se,Ce,we];for(let t of Te)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var Ee={name:Q,shader:$};export{Ee as defaultPixelShader};

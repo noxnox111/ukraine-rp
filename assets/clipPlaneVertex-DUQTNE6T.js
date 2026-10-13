@@ -174,25 +174,7 @@ colorUpdated+=(color{X}-color)*morphTargetInfluences[{X}];
 #endif
 #endif
 #endif
-`;e.IncludesShadersStore[y]||(e.IncludesShadersStore[y]=b);var x={name:y,shader:b},S=`instancesVertex`,C=`#ifdef INSTANCES
-mat4 finalWorld=mat4(world0,world1,world2,world3);
-#if defined(PREPASS_VELOCITY) || defined(VELOCITY) || defined(PREPASS_VELOCITY_LINEAR) || defined(VELOCITY_LINEAR)
-mat4 finalPreviousWorld=mat4(previousWorld0,previousWorld1,
-previousWorld2,previousWorld3);
-#endif
-#ifdef THIN_INSTANCES
-finalWorld=world*finalWorld;
-#if defined(PREPASS_VELOCITY) || defined(VELOCITY) || defined(PREPASS_VELOCITY_LINEAR) || defined(VELOCITY_LINEAR)
-finalPreviousWorld=previousWorld*finalPreviousWorld;
-#endif
-#endif
-#else
-mat4 finalWorld=world;
-#if defined(PREPASS_VELOCITY) || defined(VELOCITY) || defined(PREPASS_VELOCITY_LINEAR) || defined(VELOCITY_LINEAR)
-mat4 finalPreviousWorld=previousWorld;
-#endif
-#endif
-`;e.IncludesShadersStore[S]||(e.IncludesShadersStore[S]=C);var w={name:S,shader:C},T=`bonesVertex`,E=`#ifndef BAKED_VERTEX_ANIMATION_TEXTURE
+`;e.IncludesShadersStore[y]||(e.IncludesShadersStore[y]=b);var x={name:y,shader:b},S=`bonesVertex`,C=`#ifndef BAKED_VERTEX_ANIMATION_TEXTURE
 #if NUM_BONE_INFLUENCERS>0
 mat4 influence;
 #ifdef BONETEXTURE
@@ -245,7 +227,7 @@ influence+=mBones[int(matricesIndicesExtra[3])]*matricesWeightsExtra[3];
 finalWorld=finalWorld*influence;
 #endif
 #endif
-`;e.IncludesShadersStore[T]||(e.IncludesShadersStore[T]=E);var D={name:T,shader:E},O=`bakedVertexAnimation`,k=`#ifdef BAKED_VERTEX_ANIMATION_TEXTURE
+`;e.IncludesShadersStore[S]||(e.IncludesShadersStore[S]=C);var w={name:S,shader:C},T=`bakedVertexAnimation`,E=`#ifdef BAKED_VERTEX_ANIMATION_TEXTURE
 {
 #ifdef INSTANCES
 #define BVASNAME bakedVertexAnimationSettingsInstanced
@@ -276,7 +258,7 @@ VATInfluence+=readMatrixFromRawSamplerVAT(bakedVertexAnimationTexture,matricesIn
 #endif
 finalWorld=finalWorld*VATInfluence;}
 #endif
-`;e.IncludesShadersStore[O]||(e.IncludesShadersStore[O]=k);var A={name:O,shader:k},j=`clipPlaneVertex`,M=`#ifdef CLIPPLANE
+`;e.IncludesShadersStore[T]||(e.IncludesShadersStore[T]=E);var D={name:T,shader:E},O=`clipPlaneVertex`,k=`#ifdef CLIPPLANE
 fClipDistance=dot(worldPos,vClipPlane);
 #endif
 #ifdef CLIPPLANE2
@@ -294,4 +276,4 @@ fClipDistance5=dot(worldPos,vClipPlane5);
 #ifdef CLIPPLANE6
 fClipDistance6=dot(worldPos,vClipPlane6);
 #endif
-`;e.IncludesShadersStore[j]||(e.IncludesShadersStore[j]=M);var N={name:j,shader:M};export{x as a,f as c,r as d,w as i,l,A as n,v as o,D as r,h as s,N as t,o as u};
+`;e.IncludesShadersStore[O]||(e.IncludesShadersStore[O]=k);var A={name:O,shader:k};export{v as a,l as c,x as i,o as l,D as n,h as o,w as r,f as s,A as t,r as u};

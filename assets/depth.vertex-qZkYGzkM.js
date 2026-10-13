@@ -1,4 +1,4 @@
-import{t as e}from"./shaderStore-D-XQlhUT.js";import{a as t,c as n,d as r,i,l as a,n as o,o as s,r as c,s as l,t as u,u as d}from"./clipPlaneVertex-D0NeDy6h.js";import{t as f}from"./instancesDeclaration-CJBvtBV5.js";import{t as p}from"./pointCloudVertex-CmkEsLzf.js";var m=`pointCloudVertexDeclaration`,h=`#ifdef POINTSIZE
+import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./instancesDeclaration-CJBvtBV5.js";import{t as n}from"./instancesVertex-C-FoRQR1.js";import{a as r,c as i,i as a,l as o,n as s,o as c,r as l,s as u,t as d,u as f}from"./clipPlaneVertex-DUQTNE6T.js";import{t as p}from"./pointCloudVertex-CmkEsLzf.js";var m=`pointCloudVertexDeclaration`,h=`#ifdef POINTSIZE
 uniform float pointSize;
 #endif
 `;e.IncludesShadersStore[m]||(e.IncludesShadersStore[m]=h);var g={name:m,shader:h},_=`depthVertexShader`,v=`attribute vec3 position;
@@ -59,4 +59,4 @@ vUV=vec2(diffuseMatrix*vec4(uv2Updated,1.0,0.0));
 #endif
 #include<pointCloudVertex>
 }
-`;e.ShadersStore[_]||(e.ShadersStore[_]=v);var y=[r,d,n,l,a,f,g,s,t,i,c,o,u,p];for(let t of y)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var b={name:_,shader:v};export{b as depthVertexShader};
+`;e.ShadersStore[_]||(e.ShadersStore[_]=v);var y=[f,o,u,c,i,t,g,r,a,n,l,s,d,p];for(let t of y)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var b={name:_,shader:v};export{b as depthVertexShader};

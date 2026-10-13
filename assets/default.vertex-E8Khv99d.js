@@ -1,4 +1,4 @@
-import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./sceneUboDeclaration-B5VhSG0v.js";import{t as n}from"./meshUboDeclaration-BmNu2KU_.js";import{n as r,r as ee,t as i}from"./logDepthDeclaration-A3hI1TDh.js";import{t as te}from"./helperFunctions-gEnZbjN3.js";import{a as ne,c as a,d as o,i as s,l as c,n as l,o as u,r as d,s as re,t as ie,u as ae}from"./clipPlaneVertex-D0NeDy6h.js";import{t as oe}from"./instancesDeclaration-CJBvtBV5.js";import{t as se}from"./bumpVertex-CWhdIpqj.js";import{t as f}from"./pointCloudVertex-CmkEsLzf.js";var p=`decalVertexDeclaration`,m=`#ifdef DECAL
+import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./instancesDeclaration-CJBvtBV5.js";import{t as n}from"./instancesVertex-C-FoRQR1.js";import{t as r}from"./sceneUboDeclaration-B5VhSG0v.js";import{t as ee}from"./meshUboDeclaration-BmNu2KU_.js";import{n as i,r as te,t as ne}from"./logDepthDeclaration-A3hI1TDh.js";import{t as a}from"./helperFunctions-gEnZbjN3.js";import{a as o,c as s,i as c,l,n as u,o as d,r as re,s as ie,t as ae,u as oe}from"./clipPlaneVertex-DUQTNE6T.js";import{t as se}from"./bumpVertex-CWhdIpqj.js";import{t as f}from"./pointCloudVertex-CmkEsLzf.js";var p=`decalVertexDeclaration`,m=`#ifdef DECAL
 uniform vec4 vDecalInfos;uniform mat4 decalMatrix;
 #endif
 `;e.IncludesShadersStore[p]||(e.IncludesShadersStore[p]=m);var h={name:p,shader:m},g=`defaultVertexDeclaration`,_=`uniform mat4 viewProjection;
@@ -379,4 +379,4 @@ vMainUV2=uv2Updated;
 #include<logDepthVertex>
 #define CUSTOM_VERTEX_MAIN_END
 }
-`;e.ShadersStore[Q]||(e.ShadersStore[Q]=$);var _e=[h,ce,t,n,ee,b,te,o,ae,oe,le,r,ue,D,c,A,N,I,a,re,i,u,ne,s,d,l,z,de,fe,se,ie,pe,me,he,f,ge];for(let t of _e)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var ve={name:Q,shader:$};export{ve as defaultVertexShader};
+`;e.ShadersStore[Q]||(e.ShadersStore[Q]=$);var _e=[h,ce,r,ee,te,b,a,oe,l,t,le,i,ue,D,s,A,N,I,ie,d,ne,o,c,n,re,u,z,de,fe,se,ae,pe,me,he,f,ge];for(let t of _e)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var ve={name:Q,shader:$};export{ve as defaultVertexShader};

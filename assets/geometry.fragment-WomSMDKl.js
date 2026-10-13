@@ -1,4 +1,4 @@
-import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./sceneUboDeclaration-B5VhSG0v.js";import{a as n,i as r,n as i,o as a,r as o,t as s}from"./bumpFragment-Dy5wKBof.js";import{t as c}from"./helperFunctions-gEnZbjN3.js";import{n as l,t as u}from"./clipPlaneFragment-DVK0wgyZ.js";var d=`mrtFragmentDeclaration`,f=`#if defined(WEBGL2) || defined(WEBGPU) || defined(NATIVE)
+import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./sceneUboDeclaration-B5VhSG0v.js";import{a as n,i as r,n as i,o as a,r as o,t as s}from"./bumpFragment-Dy5wKBof.js";import{t as c}from"./helperFunctions-gEnZbjN3.js";import{n as l,t as u}from"./clipPlaneFragment-DVK0wgyZ.js";import{t as d}from"./pbrBRDFFunctions-BCNINF-p.js";var f=`mrtFragmentDeclaration`,p=`#if defined(WEBGL2) || defined(WEBGPU) || defined(NATIVE)
 #ifdef MESH_BLEND_TAG
 #if {X}>0
 #if MESH_BLEND_TAG_INDEX==0
@@ -90,7 +90,7 @@ layout(location=0) out vec4 glFragData[{X}];
 #else
 #define WRITE_GEOMETRY_FRAGMENT_OUTPUT(INDEX,VALUE) gl_FragData[INDEX]=VALUE
 #endif
-`;e.IncludesShadersStore[d]||(e.IncludesShadersStore[d]=f);var p={name:d,shader:f},m=`pbrFragmentReflectionDeclaration`,h=`#ifdef REFLECTION
+`;e.IncludesShadersStore[f]||(e.IncludesShadersStore[f]=p);var m={name:f,shader:p},h=`pbrFragmentReflectionDeclaration`,g=`#ifdef REFLECTION
 #ifdef REFLECTIONMAP_3D
 #define sampleReflection(s,c) textureCube(s,c)
 uniform samplerCube reflectionSampler;
@@ -122,185 +122,12 @@ varying vec3 vDirectionW;
 #endif
 #endif
 #endif
-`;e.IncludesShadersStore[m]||(e.IncludesShadersStore[m]=h);var g={name:m,shader:h},_=`sceneFragmentDeclaration`,v=`uniform mat4 viewProjection;
+`;e.IncludesShadersStore[h]||(e.IncludesShadersStore[h]=g);var _={name:h,shader:g},v=`sceneFragmentDeclaration`,y=`uniform mat4 viewProjection;
 #ifdef MULTIVIEW
 uniform mat4 viewProjectionR;
 #endif
 uniform mat4 view;uniform mat4 projection;uniform vec4 vEyePosition;uniform mat4 inverseProjection;
-`;e.IncludesShadersStore[_]||(e.IncludesShadersStore[_]=v);var y={name:_,shader:v},b=`pbrBRDFFunctions`,x=`#define FRESNEL_MAXIMUM_ON_ROUGH 0.25
-#define BRDF_DIFFUSE_MODEL_EON 0
-#define BRDF_DIFFUSE_MODEL_BURLEY 1
-#define BRDF_DIFFUSE_MODEL_LAMBERT 2
-#define BRDF_DIFFUSE_MODEL_LEGACY 3
-#define DIELECTRIC_SPECULAR_MODEL_GLTF 0
-#define DIELECTRIC_SPECULAR_MODEL_OPENPBR 1
-#define CONDUCTOR_SPECULAR_MODEL_GLTF 0
-#define CONDUCTOR_SPECULAR_MODEL_OPENPBR 1
-#if !defined(PBR_VERTEX_SHADER) && !defined(OPENPBR_VERTEX_SHADER)
-#ifdef MS_BRDF_ENERGY_CONSERVATION
-vec3 getEnergyConservationFactor(const vec3 specularEnvironmentR0,const vec3 environmentBrdf) {return 1.0+specularEnvironmentR0*(1.0/environmentBrdf.y-1.0);}
-#endif
-#if CONDUCTOR_SPECULAR_MODEL==CONDUCTOR_SPECULAR_MODEL_OPENPBR
-#define F82_COS_THETA_MAX 0.142857143
-#define F82_ONE_MINUS_CTM_POW5 0.462664366 
-#define F82_ONE_MINUS_CTM_POW6 0.396569457 
-#define F82_B_DENOMINATOR_RECIP 17.6512785 
-#define BRDF_Z_SCALE 16.0
-vec3 getF82Specular(float NdotV,vec3 F0,vec3 edgeTint,float roughness) {vec3 white_minus_F0=vec3(1.0)-F0;vec3 b=(F0+white_minus_F0*F82_ONE_MINUS_CTM_POW5)*(vec3(1.0)-edgeTint)*F82_B_DENOMINATOR_RECIP;float cos_theta=max(roughness,NdotV);float one_minus_cos_theta=1.0-cos_theta;vec3 offset_from_F0=(white_minus_F0-b*cos_theta*one_minus_cos_theta)*pow(one_minus_cos_theta,5.0);return clamp(F0+offset_from_F0,0.0,1.0);}
-vec3 getF82B(vec3 F0,vec3 edgeTint) {return (F0+(vec3(1.0)-F0)*F82_ONE_MINUS_CTM_POW5)*(vec3(1.0)-edgeTint)*F82_B_DENOMINATOR_RECIP;}
-vec3 getF82DirectionalAlbedo(vec3 F0,vec3 F90,vec3 b,vec3 environmentBrdf) {return (F90-F0)*environmentBrdf.x+F0*environmentBrdf.y-b*environmentBrdf.z;}
-vec3 getF82AverageFresnel(vec3 F0,vec3 b) {return F0+(vec3(1.0)-F0)/21.0-b/126.0;}
-#endif
-#ifdef FUZZENVIRONMENTBRDF
-vec3 getFuzzBRDFLookup(float NdotV,float perceptualRoughness) {vec2 UV=vec2(perceptualRoughness,NdotV);vec4 brdfLookup=texture2D(environmentFuzzBrdfSampler,UV);const vec2 RiRange=vec2(0.0,0.75);const vec2 ARange =vec2(0.005,0.88);const vec2 BRange =vec2(-0.18,0.002);brdfLookup.r=mix(ARange.x, ARange.y, brdfLookup.r);brdfLookup.g=mix(BRange.x, BRange.y, brdfLookup.g);brdfLookup.b=mix(RiRange.x,RiRange.y,brdfLookup.b);return brdfLookup.rgb;}
-#endif
-#ifdef ENVIRONMENTBRDF
-vec3 getBRDFLookup(float NdotV,float perceptualRoughness) {vec2 UV=vec2(NdotV,perceptualRoughness);vec4 brdfLookup=texture2D(environmentBrdfSampler,UV);
-#ifdef ENVIRONMENTBRDF_RGBD
-brdfLookup.rgb=fromRGBD(brdfLookup.rgba);
-#endif
-return brdfLookup.rgb;}
-vec3 getReflectanceFromBRDFLookup(const vec3 specularEnvironmentR0,const vec3 specularEnvironmentR90,const vec3 environmentBrdf) {
-#ifdef BRDF_V_HEIGHT_CORRELATED
-vec3 reflectance=(specularEnvironmentR90-specularEnvironmentR0)*environmentBrdf.x+specularEnvironmentR0*environmentBrdf.y;
-#else
-vec3 reflectance=specularEnvironmentR0*environmentBrdf.x+specularEnvironmentR90*environmentBrdf.y;
-#endif
-return reflectance;}
-vec3 getReflectanceFromBRDFLookup(const vec3 specularEnvironmentR0,const vec3 environmentBrdf) {
-#ifdef BRDF_V_HEIGHT_CORRELATED
-vec3 reflectance=mix(environmentBrdf.xxx,environmentBrdf.yyy,specularEnvironmentR0);
-#else
-vec3 reflectance=specularEnvironmentR0*environmentBrdf.x+environmentBrdf.y;
-#endif
-return reflectance;}
-#endif
-/* NOT USED
-#if defined(SHEEN) && defined(SHEEN_SOFTER)
-float getBRDFLookupCharlieSheen(float NdotV,float perceptualRoughness)
-{float c=1.0-NdotV;float c3=c*c*c;return 0.65584461*c3+1.0/(4.16526551+exp(-7.97291361*perceptualRoughness+6.33516894));}
-#endif
-*/
-#if !defined(ENVIRONMENTBRDF) || defined(REFLECTIONMAP_SKYBOX) || defined(ALPHAFRESNEL)
-vec3 getReflectanceFromAnalyticalBRDFLookup_Jones(float VdotN,vec3 reflectance0,vec3 reflectance90,float smoothness)
-{float weight=mix(FRESNEL_MAXIMUM_ON_ROUGH,1.0,smoothness);return reflectance0+weight*(reflectance90-reflectance0)*pow5(saturate(1.0-VdotN));}
-#endif
-#if defined(SHEEN) && defined(ENVIRONMENTBRDF)
-/**
-* The sheen BRDF not containing F can be easily stored in the blue channel of the BRDF texture.
-* The blue channel contains DCharlie*VAshikhmin*NdotL as a lokkup table
-*/
-vec3 getSheenReflectanceFromBRDFLookup(const vec3 reflectance0,const vec3 environmentBrdf) {vec3 sheenEnvironmentReflectance=reflectance0*environmentBrdf.b;return sheenEnvironmentReflectance;}
-#endif
-vec3 fresnelSchlickGGX(float VdotH,vec3 reflectance0,vec3 reflectance90)
-{return reflectance0+(reflectance90-reflectance0)*pow5(1.0-VdotH);}
-float fresnelSchlickGGX(float VdotH,float reflectance0,float reflectance90)
-{return reflectance0+(reflectance90-reflectance0)*pow5(1.0-VdotH);}
-#ifdef CLEARCOAT
-vec3 getR0RemappedForClearCoat(vec3 f0) {
-#ifdef CLEARCOAT_DEFAULTIOR
-#ifdef MOBILE
-return saturate(f0*(f0*0.526868+0.529324)-0.0482256);
-#else
-return saturate(f0*(f0*(0.941892-0.263008*f0)+0.346479)-0.0285998);
-#endif
-#else
-vec3 s=sqrt(f0);vec3 t=(vClearCoatRefractionParams.z+vClearCoatRefractionParams.w*s)/(vClearCoatRefractionParams.w+vClearCoatRefractionParams.z*s);return square(t);
-#endif
-}
-#endif
-#ifdef IRIDESCENCE
-const mat3 XYZ_TO_REC709=mat3(
-3.2404542,-0.9692660, 0.0556434,
--1.5371385, 1.8760108,-0.2040259,
--0.4985314, 0.0415560, 1.0572252
-);vec3 getIORTfromAirToSurfaceR0(vec3 f0) {vec3 sqrtF0=sqrt(f0);return (1.+sqrtF0)/(1.-sqrtF0);}
-vec3 getR0fromIORs(vec3 iorT,float iorI) {return square((iorT-vec3(iorI))/(iorT+vec3(iorI)));}
-float getR0fromIORs(float iorT,float iorI) {return square((iorT-iorI)/(iorT+iorI));}
-vec3 evalSensitivity(float opd,vec3 shift) {float phase=2.0*PI*opd*1.0e-9;const vec3 val=vec3(5.4856e-13,4.4201e-13,5.2481e-13);const vec3 pos=vec3(1.6810e+06,1.7953e+06,2.2084e+06);const vec3 var=vec3(4.3278e+09,9.3046e+09,6.6121e+09);vec3 xyz=val*sqrt(2.0*PI*var)*cos(pos*phase+shift)*exp(-square(phase)*var);xyz.x+=9.7470e-14*sqrt(2.0*PI*4.5282e+09)*cos(2.2399e+06*phase+shift[0])*exp(-4.5282e+09*square(phase));xyz/=1.0685e-7;vec3 srgb=XYZ_TO_REC709*xyz;return srgb;}
-vec3 evalIridescence(float outsideIOR,float eta2,float cosTheta1,float thinFilmThickness,vec3 baseF0) {vec3 I=vec3(1.0);float iridescenceIOR=mix(outsideIOR,eta2,smoothstep(0.0,0.03,thinFilmThickness));float sinTheta2Sq=square(outsideIOR/iridescenceIOR)*(1.0-square(cosTheta1));float cosTheta2Sq=1.0-sinTheta2Sq;if (cosTheta2Sq<0.0) {return I;}
-float cosTheta2=sqrt(cosTheta2Sq);float R0=getR0fromIORs(iridescenceIOR,outsideIOR);float R12=fresnelSchlickGGX(cosTheta1,R0,1.);float R21=R12;float T121=1.0-R12;float phi12=0.0;if (iridescenceIOR<outsideIOR) phi12=PI;float phi21=PI-phi12;vec3 baseIOR=getIORTfromAirToSurfaceR0(clamp(baseF0,0.0,0.9999)); 
-vec3 R1=getR0fromIORs(baseIOR,iridescenceIOR);float maxR1=max(R1.r,max(R1.g,R1.b));if (maxR1<1e-6) {return max(vec3(R12),vec3(0.0));}
-vec3 R23=fresnelSchlickGGX(cosTheta2,R1,vec3(1.));vec3 phi23=vec3(0.0);if (baseIOR[0]<iridescenceIOR) phi23[0]=PI;if (baseIOR[1]<iridescenceIOR) phi23[1]=PI;if (baseIOR[2]<iridescenceIOR) phi23[2]=PI;float opd=2.0*iridescenceIOR*thinFilmThickness*cosTheta2;vec3 phi=vec3(phi21)+phi23;vec3 R123=clamp(R12*R23,1e-5,0.9999);vec3 r123=sqrt(R123);vec3 Rs=square(T121)*R23/(vec3(1.0)-R123);vec3 C0=R12+Rs;I=C0;vec3 Cm=Rs-T121;for (int m=1; m<=2; ++m)
-{Cm*=r123;vec3 Sm=2.0*evalSensitivity(float(m)*opd,float(m)*phi);I+=Cm*Sm;}
-return max(I,vec3(0.0));}
-#endif
-float normalDistributionFunction_TrowbridgeReitzGGX(float NdotH,float alphaG)
-{float a2=square(alphaG);float d=NdotH*NdotH*(a2-1.0)+1.0;return a2/(PI*d*d);}
-#ifdef SHEEN
-float normalDistributionFunction_CharlieSheen(float NdotH,float alphaG)
-{float invR=1./alphaG;float cos2h=NdotH*NdotH;float sin2h=1.-cos2h;return (2.+invR)*pow(sin2h,invR*.5)/(2.*PI);}
-#endif
-#ifdef ANISOTROPIC
-float normalDistributionFunction_BurleyGGX_Anisotropic(float NdotH,float TdotH,float BdotH,const vec2 alphaTB) {float a2=alphaTB.x*alphaTB.y;vec3 v=vec3(alphaTB.y*TdotH,alphaTB.x *BdotH,a2*NdotH);float v2=dot(v,v);float w2=a2/v2;return a2*w2*w2*RECIPROCAL_PI;}
-#endif
-#ifdef BRDF_V_HEIGHT_CORRELATED
-float smithVisibility_GGXCorrelated(float NdotL,float NdotV,float alphaG) {
-#ifdef MOBILE
-float GGXV=NdotL*(NdotV*(1.0-alphaG)+alphaG);float GGXL=NdotV*(NdotL*(1.0-alphaG)+alphaG);return 0.5/(GGXV+GGXL);
-#else
-float a2=alphaG*alphaG;float GGXV=NdotL*sqrt(NdotV*(NdotV-a2*NdotV)+a2);float GGXL=NdotV*sqrt(NdotL*(NdotL-a2*NdotL)+a2);return 0.5/(GGXV+GGXL);
-#endif
-}
-#else
-float smithVisibilityG1_TrowbridgeReitzGGXFast(float dot,float alphaG)
-{
-#ifdef MOBILE
-return 1.0/(dot+alphaG+(1.0-alphaG)*dot ));
-#else
-float alphaSquared=alphaG*alphaG;return 1.0/(dot+sqrt(alphaSquared+(1.0-alphaSquared)*dot*dot));
-#endif
-}
-float smithVisibility_TrowbridgeReitzGGXFast(float NdotL,float NdotV,float alphaG)
-{float visibility=smithVisibilityG1_TrowbridgeReitzGGXFast(NdotL,alphaG)*smithVisibilityG1_TrowbridgeReitzGGXFast(NdotV,alphaG);return visibility;}
-#endif
-#ifdef ANISOTROPIC
-float smithVisibility_GGXCorrelated_Anisotropic(float NdotL,float NdotV,float TdotV,float BdotV,float TdotL,float BdotL,const vec2 alphaTB) {float lambdaV=NdotL*length(vec3(alphaTB.x*TdotV,alphaTB.y*BdotV,NdotV));float lambdaL=NdotV*length(vec3(alphaTB.x*TdotL,alphaTB.y*BdotL,NdotL));float v=0.5/(lambdaV+lambdaL);return v;}
-#endif
-#ifdef CLEARCOAT
-float visibility_Kelemen(float VdotH) {return 0.25/(VdotH*VdotH); }
-#endif
-#ifdef SHEEN
-float visibility_Ashikhmin(float NdotL,float NdotV)
-{return 1./(4.*(NdotL+NdotV-NdotL*NdotV));}
-/* NOT USED
-#ifdef SHEEN_SOFTER
-float l(float x,float alphaG)
-{float oneMinusAlphaSq=(1.0-alphaG)*(1.0-alphaG);float a=mix(21.5473,25.3245,oneMinusAlphaSq);float b=mix(3.82987,3.32435,oneMinusAlphaSq);float c=mix(0.19823,0.16801,oneMinusAlphaSq);float d=mix(-1.97760,-1.27393,oneMinusAlphaSq);float e=mix(-4.32054,-4.85967,oneMinusAlphaSq);return a/(1.0+b*pow(x,c))+d*x+e;}
-float lambdaSheen(float cosTheta,float alphaG)
-{return abs(cosTheta)<0.5 ? exp(l(cosTheta,alphaG)) : exp(2.0*l(0.5,alphaG)-l(1.0-cosTheta,alphaG));}
-float visibility_CharlieSheen(float NdotL,float NdotV,float alphaG)
-{float G=1.0/(1.0+lambdaSheen(NdotV,alphaG)+lambdaSheen(NdotL,alphaG));return G/(4.0*NdotV*NdotL);}
-#endif
-*/
-#endif
-float diffuseBRDF_Burley(float NdotL,float NdotV,float VdotH,float roughness) {float diffuseFresnelNV=pow5(saturateEps(1.0-NdotL));float diffuseFresnelNL=pow5(saturateEps(1.0-NdotV));float diffuseFresnel90=0.5+2.0*VdotH*VdotH*roughness;float fresnel =
-(1.0+(diffuseFresnel90-1.0)*diffuseFresnelNL) *
-(1.0+(diffuseFresnel90-1.0)*diffuseFresnelNV);return fresnel/PI;}
-const float constant1_FON=0.5-2.0/(3.0*PI);const float constant2_FON=2.0/3.0-28.0/(15.0*PI);float E_FON_approx(float mu,float roughness)
-{float sigma=roughness; 
-float mucomp=1.0-mu;float mucomp2=mucomp*mucomp;const mat2 Gcoeffs=mat2(0.0571085289,-0.332181442,
-0.491881867,0.0714429953);float GoverPi=dot(Gcoeffs*vec2(mucomp,mucomp2),vec2(1.0,mucomp2));return (1.0+sigma*GoverPi)/(1.0+constant1_FON*sigma);}
-vec3 diffuseBRDF_EON(vec3 albedo,float roughness,float NdotL,float NdotV,float LdotV)
-{vec3 rho=albedo;float sigma=roughness; 
-float mu_i=NdotL; 
-float mu_o=NdotV; 
-float s=LdotV-mu_i*mu_o; 
-float sovertF=s>0.0 ? s/max(mu_i,mu_o) : s; 
-float AF=1.0/(1.0+constant1_FON*sigma); 
-vec3 f_ss=(rho*RECIPROCAL_PI)*AF*(1.0+sigma*sovertF); 
-float EFo=E_FON_approx(mu_o,sigma); 
-float EFi=E_FON_approx(mu_i,sigma); 
-float avgEF=AF*(1.0+constant2_FON*sigma); 
-vec3 rho_ms=(rho*rho)*avgEF/(vec3(1.0)-rho*(1.0-avgEF));const float eps=1.0e-7;vec3 f_ms=(rho_ms*RECIPROCAL_PI)*max(eps,1.0-EFo) 
-* max(eps,1.0-EFi)
-/ max(eps,1.0-avgEF);return (f_ss+f_ms);}
-#ifdef SS_TRANSLUCENCY
-vec3 transmittanceBRDF_Burley(const vec3 tintColor,const vec3 diffusionDistance,float thickness) {vec3 S=1./maxEps(diffusionDistance);vec3 temp=exp((-0.333333333*thickness)*S);return tintColor.rgb*0.25*(temp*temp*temp+3.0*temp);}
-float computeWrappedDiffuseNdotL(float NdotL,float w) {float t=1.0+w;float invt2=1.0/square(t);return saturate((NdotL+w)*invt2);}
-#endif
-#endif 
-`;e.IncludesShadersStore[b]||(e.IncludesShadersStore[b]=x);var S={name:b,shader:x},C=`openpbrDielectricReflectance`,w=`struct ReflectanceParams
+`;e.IncludesShadersStore[v]||(e.IncludesShadersStore[v]=y);var b={name:v,shader:y},x=`openpbrDielectricReflectance`,S=`struct ReflectanceParams
 {float F0;float F90;vec3 coloredF0;vec3 coloredF90;};
 #define pbr_inline
 ReflectanceParams dielectricReflectance(
@@ -318,7 +145,7 @@ float maxF0=max(specularColor.r,max(specularColor.g,specularColor.b));outParams.
 outParams.F0=dielectricF0*specularWeight;
 #endif
 outParams.F90=f90Scale*specularWeight;outParams.coloredF0=vec3(dielectricF0*specularWeight)*specularColor.rgb;outParams.coloredF90=dielectricColorF90*vec3(specularWeight);return outParams;}
-`;e.IncludesShadersStore[C]||(e.IncludesShadersStore[C]=w);var T={name:C,shader:w},E=`pbrIBLFunctions`,D=`#if defined(REFLECTION) || defined(SS_REFRACTION)
+`;e.IncludesShadersStore[x]||(e.IncludesShadersStore[x]=S);var C={name:x,shader:S},w=`pbrIBLFunctions`,T=`#if defined(REFLECTION) || defined(SS_REFRACTION)
 float getLodFromAlphaG(float cubeMapDimensionPixels,float microsurfaceAverageSlope) {float microsurfaceAverageSlopeTexels=cubeMapDimensionPixels*microsurfaceAverageSlope;float lod=log2(microsurfaceAverageSlopeTexels);return lod;}
 float getLinearLodFromRoughness(float cubeMapDimensionPixels,float roughness) {float lod=log2(cubeMapDimensionPixels)*roughness;return lod;}
 #endif
@@ -332,7 +159,7 @@ float environmentHorizonOcclusion(vec3 view,vec3 normal,vec3 geometricNormal) {v
 #define UNPACK_LOD(x) (1.0-x)*255.0
 float getLodFromAlphaG(float cubeMapDimensionPixels,float alphaG,float NdotV) {float microsurfaceAverageSlope=alphaG;microsurfaceAverageSlope*=sqrt(abs(NdotV));return getLodFromAlphaG(cubeMapDimensionPixels,microsurfaceAverageSlope);}
 #endif
-`;e.IncludesShadersStore[E]||(e.IncludesShadersStore[E]=D);var O={name:E,shader:D},k=`openpbrGeometryInfo`,A=`struct geometryInfoOutParams
+`;e.IncludesShadersStore[w]||(e.IncludesShadersStore[w]=T);var E={name:w,shader:T},D=`openpbrGeometryInfo`,O=`struct geometryInfoOutParams
 {float NdotV;float NdotVUnclamped;vec3 environmentBrdf;float horizonOcclusion;};struct geometryInfoAnisoOutParams
 {float NdotV;float NdotVUnclamped;vec3 environmentBrdf;float horizonOcclusion;float anisotropy;vec3 anisotropicTangent;vec3 anisotropicBitangent;mat3 TBN;};
 #define pbr_inline
@@ -361,7 +188,7 @@ geometryInfoAnisoOutParams geometryInfoAniso(
 in vec3 normalW,in vec3 viewDirectionW,in float roughness,in vec3 geometricNormalW
 ,in vec3 vAnisotropy,in mat3 TBN
 )
-{geometryInfoOutParams geoInfo=geometryInfo(normalW,viewDirectionW,roughness,geometricNormalW);geometryInfoAnisoOutParams outParams;outParams.NdotV=geoInfo.NdotV;outParams.NdotVUnclamped=geoInfo.NdotVUnclamped;outParams.environmentBrdf=geoInfo.environmentBrdf;outParams.horizonOcclusion=geoInfo.horizonOcclusion;outParams.anisotropy=vAnisotropy.b;vec3 anisotropyDirection=vec3(vAnisotropy.xy,0.);mat3 anisoTBN=mat3(normalize(TBN[0]),normalize(TBN[1]),normalize(TBN[2]));outParams.anisotropicTangent=normalize(anisoTBN*anisotropyDirection);outParams.anisotropicBitangent=normalize(cross(anisoTBN[2],outParams.anisotropicTangent));outParams.TBN=TBN;return outParams;}`;e.IncludesShadersStore[k]||(e.IncludesShadersStore[k]=A);var j={name:k,shader:A},M=`openpbrIblFunctions`,N=`#ifdef REFLECTION
+{geometryInfoOutParams geoInfo=geometryInfo(normalW,viewDirectionW,roughness,geometricNormalW);geometryInfoAnisoOutParams outParams;outParams.NdotV=geoInfo.NdotV;outParams.NdotVUnclamped=geoInfo.NdotVUnclamped;outParams.environmentBrdf=geoInfo.environmentBrdf;outParams.horizonOcclusion=geoInfo.horizonOcclusion;outParams.anisotropy=vAnisotropy.b;vec3 anisotropyDirection=vec3(vAnisotropy.xy,0.);mat3 anisoTBN=mat3(normalize(TBN[0]),normalize(TBN[1]),normalize(TBN[2]));outParams.anisotropicTangent=normalize(anisoTBN*anisotropyDirection);outParams.anisotropicBitangent=normalize(cross(anisoTBN[2],outParams.anisotropicTangent));outParams.TBN=TBN;return outParams;}`;e.IncludesShadersStore[D]||(e.IncludesShadersStore[D]=O);var k={name:D,shader:O},A=`openpbrIblFunctions`,j=`#ifdef REFLECTION
 vec3 sampleIrradiance(
 in vec3 surfaceNormal
 #if defined(NORMAL) && defined(USESPHERICALINVERTEX)
@@ -584,7 +411,7 @@ return getReflectanceFromBRDFLookup(reflectance.coloredF0,reflectance.coloredF90
 #endif
 }
 #endif
-`;e.IncludesShadersStore[M]||(e.IncludesShadersStore[M]=N);var P={name:M,shader:N},F=`openpbrSubsurfaceLayerData`,I=`float subsurface_weight=vSubsurfaceWeight;vec3 subsurface_color=vSubsurfaceColor.rgb;float subsurface_radius=vSubsurfaceRadius;vec3 subsurface_radius_scale=vSubsurfaceRadiusScale;float subsurface_scatter_anisotropy=clamp(vSubsurfaceScatterAnisotropy,-0.9999,0.9999);
+`;e.IncludesShadersStore[A]||(e.IncludesShadersStore[A]=j);var M={name:A,shader:j},N=`openpbrSubsurfaceLayerData`,P=`float subsurface_weight=vSubsurfaceWeight;vec3 subsurface_color=vSubsurfaceColor.rgb;float subsurface_radius=vSubsurfaceRadius;vec3 subsurface_radius_scale=vSubsurfaceRadiusScale;float subsurface_scatter_anisotropy=clamp(vSubsurfaceScatterAnisotropy,-0.9999,0.9999);
 #ifdef SUBSURFACE_WEIGHT
 vec4 subsurfaceWeightFromTexture=TEXRD(subsurfaceWeightSampler,vSubsurfaceWeightUV+uvOffset);
 #endif
@@ -612,7 +439,7 @@ subsurface_color*=vSubsurfaceColorInfos.y;
 #ifdef SUBSURFACE_RADIUS_SCALE
 subsurface_radius_scale*=subsurfaceRadiusScaleFromTexture.rgb;
 #endif
-`;e.IncludesShadersStore[F]||(e.IncludesShadersStore[F]=I);var L={name:F,shader:I},R=`openpbrTransmissionLayerData`,z=`float transmission_weight=vTransmissionWeight;vec3 transmission_color=vTransmissionColor.rgb;float transmission_depth=vTransmissionDepth;vec3 transmission_scatter=vTransmissionScatter.rgb;float transmission_scatter_anisotropy=clamp(vTransmissionScatterAnisotropy,-0.9999,0.9999);float transmission_dispersion_scale=vTransmissionDispersionScale;float transmission_dispersion_abbe_number=vTransmissionDispersionAbbeNumber;
+`;e.IncludesShadersStore[N]||(e.IncludesShadersStore[N]=P);var F={name:N,shader:P},I=`openpbrTransmissionLayerData`,L=`float transmission_weight=vTransmissionWeight;vec3 transmission_color=vTransmissionColor.rgb;float transmission_depth=vTransmissionDepth;vec3 transmission_scatter=vTransmissionScatter.rgb;float transmission_scatter_anisotropy=clamp(vTransmissionScatterAnisotropy,-0.9999,0.9999);float transmission_dispersion_scale=vTransmissionDispersionScale;float transmission_dispersion_abbe_number=vTransmissionDispersionAbbeNumber;
 #ifdef TRANSMISSION_WEIGHT
 vec4 transmissionWeightFromTexture=TEXRD(transmissionWeightSampler,vTransmissionWeightUV+uvOffset);
 #endif
@@ -648,7 +475,7 @@ transmission_scatter*=transmissionScatterFromTexture.rgb;
 #ifdef TRANSMISSION_DISPERSION_SCALE
 transmission_dispersion_scale*=transmissionDispersionScaleFromTexture.r;
 #endif
-`;e.IncludesShadersStore[R]||(e.IncludesShadersStore[R]=z);var B={name:R,shader:z},V=`geometryPixelShader`,H=`#extension GL_EXT_draw_buffers : require
+`;e.IncludesShadersStore[I]||(e.IncludesShadersStore[I]=L);var R={name:I,shader:L},z=`geometryPixelShader`,B=`#extension GL_EXT_draw_buffers : require
 #if defined(BUMP) || !defined(NORMAL)
 #extension GL_OES_standard_derivatives : enable
 #endif
@@ -899,4 +726,4 @@ irradiance_alpha=min(subsurface_weight+transmission_weight,1.0);
 WRITE_GEOMETRY_FRAGMENT_OUTPUT(IRRADIANCE_INDEX,vec4(irradiance,irradiance_alpha));
 #endif
 }
-`;e.ShadersStore[V]||(e.ShadersStore[V]=H);var U=[a,l,p,o,n,i,c,g,y,t,S,T,O,r,j,P,u,s,L,B];for(let t of U)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var W={name:V,shader:H};export{W as geometryPixelShader};
+`;e.ShadersStore[z]||(e.ShadersStore[z]=B);var V=[a,l,m,o,n,i,c,_,b,t,d,C,E,r,k,M,u,s,F,R];for(let t of V)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var H={name:z,shader:B};export{H as geometryPixelShader};

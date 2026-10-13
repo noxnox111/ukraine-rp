@@ -1,4 +1,4 @@
-import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./sceneUboDeclaration-B5VhSG0v.js";import{a as n,c as r,d as i,i as a,l as o,n as s,o as c,r as l,s as u,t as d,u as f}from"./clipPlaneVertex-D0NeDy6h.js";import{t as p}from"./instancesDeclaration-CJBvtBV5.js";import{t as m}from"./bumpVertex-CWhdIpqj.js";var h=`geometryVertexDeclaration`,g=`uniform mat4 viewProjection;uniform mat4 view;`;e.IncludesShadersStore[h]||(e.IncludesShadersStore[h]=g);var _={name:h,shader:g},v=`geometryUboDeclaration`,y=`#include<sceneUboDeclaration>
+import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./instancesDeclaration-CJBvtBV5.js";import{t as n}from"./instancesVertex-C-FoRQR1.js";import{t as r}from"./sceneUboDeclaration-B5VhSG0v.js";import{a as i,c as a,i as o,l as s,n as c,o as l,r as u,s as d,t as f,u as p}from"./clipPlaneVertex-DUQTNE6T.js";import{t as m}from"./bumpVertex-CWhdIpqj.js";var h=`geometryVertexDeclaration`,g=`uniform mat4 viewProjection;uniform mat4 view;`;e.IncludesShadersStore[h]||(e.IncludesShadersStore[h]=g);var _={name:h,shader:g},v=`geometryUboDeclaration`,y=`#include<sceneUboDeclaration>
 `;e.IncludesShadersStore[v]||(e.IncludesShadersStore[v]=y);var b={name:v,shader:y},x=`harmonicsFunctions`,S=`#ifdef USESPHERICALFROMREFLECTIONMAP
 #ifdef SPHERICAL_HARMONICS
 vec3 computeEnvironmentIrradiance(vec3 normal) {return vSphericalL00
@@ -226,4 +226,4 @@ vEnvironmentIrradiance=computeEnvironmentIrradiance(reflectionVector)*vReflectio
 #endif
 #endif
 }
-`;e.ShadersStore[w]||(e.ShadersStore[w]=T);var E=[i,f,r,u,p,_,t,b,o,C,c,n,a,l,s,d,m];for(let t of E)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var D={name:w,shader:T};export{D as geometryVertexShader};
+`;e.ShadersStore[w]||(e.ShadersStore[w]=T);var E=[p,s,d,l,t,_,r,b,a,C,i,o,n,u,c,f,m];for(let t of E)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var D={name:w,shader:T};export{D as geometryVertexShader};

@@ -1,4 +1,4 @@
-import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./sceneUboDeclaration-B5VhSG0v.js";import{t as n}from"./meshUboDeclaration-BmNu2KU_.js";import{t as r}from"./helperFunctions-gEnZbjN3.js";import{a as i,c as a,d as o,i as s,l as c,n as l,o as u,r as d,s as f,t as p,u as m}from"./clipPlaneVertex-D0NeDy6h.js";var h=`sceneVertexDeclaration`,g=`uniform mat4 viewProjection;
+import{t as e}from"./shaderStore-D-XQlhUT.js";import{t}from"./instancesVertex-C-FoRQR1.js";import{t as n}from"./sceneUboDeclaration-B5VhSG0v.js";import{t as r}from"./meshUboDeclaration-BmNu2KU_.js";import{t as i}from"./helperFunctions-gEnZbjN3.js";import{a,c as o,i as s,l as c,n as l,o as u,r as d,s as f,t as p,u as m}from"./clipPlaneVertex-DUQTNE6T.js";var h=`sceneVertexDeclaration`,g=`uniform mat4 viewProjection;
 #ifdef MULTIVIEW
 uniform mat4 viewProjectionR;
 #endif
@@ -116,4 +116,4 @@ vUV=vec2(diffuseMatrix*vec4(uv2Updated,1.0,0.0));
 #endif
 #endif
 #include<clipPlaneVertex>
-}`;e.ShadersStore[I]||(e.ShadersStore[I]=L);var R=[o,m,a,f,r,_,b,C,t,n,E,k,c,u,i,s,d,l,M,F,p];for(let t of R)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var z={name:I,shader:L};export{z as shadowMapVertexShader};
+}`;e.ShadersStore[I]||(e.ShadersStore[I]=L);var R=[m,c,f,u,i,_,b,C,n,r,E,k,o,a,s,t,d,l,M,F,p];for(let t of R)e.IncludesShadersStore[t.name]||(e.IncludesShadersStore[t.name]=t.shader);var z={name:I,shader:L};export{z as shadowMapVertexShader};

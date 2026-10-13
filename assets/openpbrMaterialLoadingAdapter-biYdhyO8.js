@@ -1,1 +1,0 @@
-export{t as OpenPBRMaterialLoadingAdapter}from"./openpbrMaterialLoadingAdapter-BSadpLei.js";

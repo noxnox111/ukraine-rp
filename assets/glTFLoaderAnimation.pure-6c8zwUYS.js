@@ -1,1 +1,0 @@
-export{t as AnimationPropertyInfo,n as RegisterGLTFLoaderAnimation,r as TransformNodeAnimationPropertyInfo,i as WeightAnimationPropertyInfo,a as getQuaternion,o as getVector3,s as getWeights}from"./glTFLoaderAnimation.pure-DtuskWW0.js";
